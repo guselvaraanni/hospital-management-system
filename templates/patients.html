@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title%}
+Patients Bookings
+{% endblock title%}
+{% block body%}
+<div class = "container mt-3">
+<div class = row>
+    <div class = "col-md-5">
+        <div class="card" style="width: 25rem;">
+            <img src="/static/bookings.jpg" class="card-img-top img-fluid " alt="...">
+            <div class="card-body">
+              <h5 class="card-title">HOSPITAL DOCTORS</h5>
+              <p class="card-text">Doctor names</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Dr.Smith</li>
+              <li class="list-group-item">Dr.Johnson</li>
+              <li class="list-group-item">Dr.Raanni</li>
+            </ul>
+            <div class="card-body">
+              <a href="#" class="card-link">Contact us</a>
+              <a href="#" class="card-link">About us</a>
+            </div>
+          </div>
+
+    </div>
+    
+    <div class = "col-md-5">
+
+        <div class = "container mt-3">
+            <div class = "row">
+            
+                
+                        
+                            <div class="shadow p-4 ">
+                                <div class="card-header bg-dark text-white  bordered shadow p-3">
+                                    <div class = " center">
+                                    <h3 class="mb-0 ">Patient Booking Slot</h3>
+
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+            
+                                    <!-- Booking Form -->
+                                    
+                                    <form action="/patients" method="POST">
+            
+                                        <!-- Patient Information -->
+                                        <br>
+                                        <h5 class="mb-3">Patient Information</h5>
+            
+                                        <div class="mb-3 form-group">
+                                            <label for="patientName" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="patientName" name="name" placeholder = "name" required>
+                                        </div>
+            
+                                        <div class="mb-3">
+                                            <label for="patientEmail" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email" placeholder = "email" required>
+                                        </div>
+
+                                        <div class ="mb-3">
+                                            <label for = "gender" class="form-label">Gender</label>
+                                            <select class = "form-control" id = "gender" name ="gender" Required>
+                                                <option selected>Gender</option>
+                                                <option >Male</option>
+                                                <option >Female</option>
+                                                <option >Others</option>
+                                                
+                                            </select>
+                                        </div>
+
+                                        
+            
+                                        <!-- Appointment Details -->
+                                        <h5 class="mb-3">Appointment Details</h5>
+            
+                                        <div class="mb-3">
+                                            <label for="appointmentDate" class="form-label">Appointment Date</label>
+                                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="appointmentTime" class="form-label">Appointment Time</label>
+                                            <input type="time" class="form-control" id="appointmentTime" name="appointmentTime" required>
+                                        </div>
+                                        <div class ="mb-3">
+                            
+                                            <label for = "slot" class="form-label">Slot</label>
+                                            <select class = "form-control" id = "slot" name ="slot" Required>
+                                                <option selected>Slot</option>
+                                                <option >Morning</option>
+                                                <option >Afternoon</option>
+                                                <option >Evening</option>
+                                                <option >Night</option>
+                                                
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3 form-group">
+                                            <label for="disease" class="form-label">Disease</label>
+                                            <input type="text" class="form-control" id="disease" name="disease" placeholder = "disease" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="doctorSelection" class="form-label">Department</label>
+                                            <select class="form-select" id="dept" name="department" required>
+                                                <option value="" disabled selected>Select doctor department</option>
+                                                {% for d in doct %}
+                                                <option value="{{d.dept}}">{{d.dept}}</option>
+                                                {%endfor%}
+                                                
+                                            </select>
+                                        </div>
+            
+                                        <div class="mb-3">
+                                            <label for="doctorSelection" class="form-label">Select Doctor</label>
+                                            <select class="form-select" id="doctorname" name="doctorname" required>
+                                                <option value="" disabled selected>Select doctor</option>
+                                                {% for d in doct %}
+                                                    <option value="{{d.doctorname}}">{{d.doctorname}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="mb-3 form-group">
+                                            <label for="phonenumber" class="form-label">phonenumber</label>
+                                            <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder = "phonenumber" required>
+                                        </div>
+            
+                                        <!-- Submit Button -->
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-dark btn-block">Submit Booking</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        
+                    
+            
+            </div>
+            </div>
+            
+            
+            
+            <div class = "col-md-4">
+
+            </div>
+    {% endblock body%}

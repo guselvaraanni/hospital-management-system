@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title%}
+Edit Patient Bookings
+{% endblock title%}
+{% block body%}
+
+<div class = "row">
+    <div class = "col-md-4"></div>
+    <div class = "col-md-4">
+        <div class="shadow p-4 ">
+            <div class="card-header bg-dark text-white  bordered shadow p-3">
+                <div class = " center">
+                <h3 class="mb-0 ">Update Booking Slot</h3>
+
+                </div>
+            </div>
+            <div class="card-body">
+                
+
+                <!-- Booking Form -->
+                
+                <form action="/edit/{{posts.pid}}" method="POST">
+
+                    <!-- Patient Information -->
+                    <br>
+                    <h5 class="mb-3">Patient Information</h5>
+
+                    <div class="mb-3 form-group">
+                        <label for="patientName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="patientName" name="name" value = {{posts.name}} placeholder = "name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="patientEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value = {{current_user.email}} required>
+                    </div>
+
+                    <div class ="mb-3">
+                        <label for = "gender" class="form-label">Gender</label>
+                        <select class = "form-control" id = "gender" name ="gender"  Required>
+                            <option selected>{{posts.gender}}</option>
+                            <option >Male</option>
+                            <option >Female</option>
+                            <option >Others</option>
+                            
+                        </select>
+                    </div>
+
+                    
+
+                    <!-- Appointment Details -->
+                    <h5 class="mb-3">Appointment Details</h5>
+
+                    <div class="mb-3">
+                        <label for="appointmentDate" class="form-label">Appointment Date</label>
+                        <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" value = {{posts.appointmentDate}} required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="appointmentTime" class="form-label">Appointment Time</label>
+                        <input type="time" class="form-control" id="appointmentTime" name="appointmentTime" value = {{posts.appointmentTime}} required>
+                    </div>
+                    <div class ="mb-3">
+        
+                        <label for = "slot" class="form-label">Slot</label>
+                        <select class = "form-control" id = "slot" name ="slot"  Required>
+                            <option selected>{{posts.slot}}</option>
+                            <option >Morning</option>
+                            <option >Afternoon</option>
+                            <option >Evening</option>
+                            <option >Night</option>
+                            
+                        </select>
+                    </div>
+
+                    <div class="mb-3 form-group">
+                        <label for="disease" class="form-label">Disease</label>
+                        <input type="text" class="form-control" id="disease" name="disease" value = {{posts.disease}} placeholder = "disease" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="doctorSelection" class="form-label">Select Doctor</label>
+                        <select class="form-select" id="doctorSelection" name="selectdoctor"  required>
+                            <option value="" disabled selected>{{posts.selectdoctor}}</option>
+                            <option value="drSmith">Dr. Smith</option>
+                            <option value="drJohnson">Dr. Johnson</option>
+                            <option value="drJohnson">Dr. Raanni</option>
+                            <!-- Add more doctor options as needed -->
+                        </select>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="phonenumber" class="form-label">phonenumber</label>
+                        <input type="text" class="form-control" id="phonenumber" name="phonenumber" value={{posts.phonenumber}} placeholder = "phonenumber" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+
+
+</div>
+
+
+
+    </div>
+    <div class = "col-md-4"></div>
+
+
+
+{% endblock body%}
