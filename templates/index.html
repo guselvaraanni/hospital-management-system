@@ -1,36 +1,46 @@
 {% extends "base.html" %}
+
 {% block title %}
 Home
 {% endblock title %}
+
 {% block head %}
+{{ super() }}
+<!-- Add Bootstrap CSS CDN -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
-    .carousel-item img {
-        height: 43rem;
-        width: 100%;
-        object-fit: cover; /* Ensure the image covers the entire container */
-        border-radius: 10px; /* Add rounded corners to the image */
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-        transform: scale(0.9); /* Initially scale down the image */
-        transition: transform 0.5s ease; /* Add transition effect for the transform */
+    .carousel-item {
+        display: flex;
+        align-items: center;
     }
-    
-    .carousel-item.active img {
-        transform: scale(1); /* Scale up the active image */
+    .carousel-item img {
+        margin-left: 15px; /* Add margin to the left */
+        max-width: 40%; /* Limit the width of the images */
+    }
+    .carousel-text-content {
+        max-width: 50%; /* Control the width of the text section */
+        margin-left: auto; /* Align text to the right */
+        padding: 20px;
+        text-align: left;
     }
 
-    /* Center content */
-    .container-center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh; /* Adjust height to cover the full viewport height */
-        background-image: url('/static/pic3.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
+    @keyframes slideInDown {
+        from {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
 </style>
 {% endblock head %}
+
 {% block body %}
+{{ super() }}
+
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
 {% for category, message in messages %}
@@ -41,38 +51,344 @@ Home
 {% endfor %}
 {% endif %}
 {% endwith %}
-<div class="container-center">
-    <div style="position: relative;">
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-touch="false" style="width: 100%; max-width: 100rem; height: 20rem;">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="/static/home_page2.jpg" data-bs-target="#carouselExampleFade" data-bs-slide="prev" style="height: 43rem;" class="d-block w-100 img-fluid" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3>Welcome to Hospital management system</h3>
-                        <h5>You can book your hospital slots here</h5>
-                    </div>
+
+<!-- Header Section -->
+<div class="container mb-4">
+    <div class="row align-items-center">
+        <!-- Text Column -->
+        <div class="col-md-5 text-aligin-center text-md-start text-white">
+            <div class="p-4 rounded" style="color: black; text-align: left;">
+                <h1><b>SR HOSPITAL</b></h1>
+                <p class="lead mb-3">At SR Hospital, our mission is to deliver exceptional healthcare with compassion and expertise. We offer a comprehensive range of medical services, leveraging cutting-edge technology and a dedicated team of professionals. Your health and well-being are our top priorities, and we are committed to providing the highest quality care for every patient.</p>
                 </div>
-                <div class="carousel-item">
-                    <img src="/static/home_page3.jpg" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next" style="height: 43rem;" class="d-block w-100 img-fluid " alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3>Welcome to Hospital management system</h3>
-                        <h5>You can book your hospital slots here</h5>
-                    </div>
+        </div>
+
+        <!-- Image Column -->
+        <div class="col-md-7">
+            <img src="{{ url_for('static', filename='white2.jpg') }}" class="img-fluid" alt="Background Image">
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container about-section my-5 scroll-animate">
+    <div class="text-center">
+        <h2 class="mb-4">About SR Hospital</h2>
+        <p class="lead mb-3">SR Hospital is dedicated to providing comprehensive medical care and ensuring the well-being of our patients. With a team of experienced professionals and state-of-the-art facilities, we are committed to delivering exceptional healthcare services to meet the diverse needs of our community.</p>
+        <img src="{{ url_for('static', filename='hosp.jpg') }}" class="img-fluid rounded mb-4" alt="Hospital Building" style="max-width: 25%;">
+        <img src="{{ url_for('static', filename='hosp2.jpg') }}" class="img-fluid rounded mb-4" alt="Hospital Building" style="max-width: 25%;">
+        <img src="{{ url_for('static', filename='hosp3.jpg') }}" class="img-fluid rounded mb-4" alt="Hospital Building" style="max-width: 25%;">    
+    </div>
+    <br>
+    <div class="text-center"><h2 class="mb-4">Who We Are</h2></div>
+    <br>
+    <div class="row text-center">
+        <div class="col-md-3">
+            <div class="card border-0 rounded shadow">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='logo1.jpg') }}" class="card-img-top" alt="Healthcare Logo" style="width: 150px; height: 150px; object-fit: fill;">
                 </div>
-                <div class="carousel-item">
-                    <img src="/static/home_page.jpg" style="height: 43rem;" class="d-block w-100 img-fluid " alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h3>Welcome to Hospital management system</h3>
-                        <h5>You can book your hospital slots here</h5>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Healthcare</h5>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card border-0 rounded shadow">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='logo2.jpg') }}" class="card-img-top" alt="Research Lab Logo" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                    <div class="card-body">
+                    <h5 class="card-title">Research Lab</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 rounded shadow">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='logo3.jpg') }}" class="card-img-top" alt="Great Cabinets Logo" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Great Cabinets</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 rounded shadow">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='logo4.jpg') }}" class="card-img-top" alt="Dental Websites Logo" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Dental Websites</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+
+<!-- Carousel -->
+<div class="text-center"><h2 class="mb-4">Recent Enhancements and Developments</h2></div>
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <!-- Carousel Item 1 -->
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Image Column -->
+                    <div class="col-md-6">
+                        <img src="{{ url_for('static', filename='home1.jpg') }}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="col-md-1">
+                        
+                    </div>
+                    <!-- Text Column -->
+                    <div class="col-md-5">
+                        <div class="carousel-text-content w-50 ms-md-5">
+                            <h3>Welcome to SR Hospital</h3>
+                            <p>At SR Hospital, we prioritize your health and well-being with top-notch medical services and state-of-the-art facilities.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="carousel-indicators" style="position: fixed; bottom: 0; left: 35%; transform: translateX(-50%);">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <!-- Carousel Item 2 -->
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Image Column -->
+                    <div class="col-md-6">
+                        <img src="{{ url_for('static', filename='home4.jpg') }}" class="d-block w-100" alt="...">
+                    </div>
+                    <!-- Text Column -->
+                    <div class="col-md-1">
+                        
+                    </div>
+                    <div class="col-md-5">
+                        <div class="carousel-text-content w-50 ms-md-5">
+                            <h3>Comprehensive Care</h3>
+                            <p>We offer a full range of medical services to meet all of your healthcare needs, from routine checkups to specialized treatments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel Item 3 -->
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Image Column -->
+                    <div class="col-md-6">
+                        <img src="{{ url_for('static', filename='home5.jpg') }}" class="d-block w-100" alt="...">
+                    </div>
+                    <!-- Text Column -->
+                    <div class="col-md-1">
+                        
+                    </div>
+                    <div class="col-md-5">
+                        <div class="carousel-text-content w-50 ms-md-5">
+                            <h3>Advanced Technology</h3>
+                            <p>Our hospital is equipped with the latest medical technology to ensure accurate diagnostics and effective treatments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+<div class="container my-5 scroll-animate">
+    <h2 class="text-center mb-4">Hospital Dashboard</h2>
+    <div class="row text-center">
+        <div class="col-md-3 mb-4">
+            <div class="dashboard-card p-4 rounded shadow bg-white">
+                <img src="{{ url_for('static', filename='dashboard1.jpg') }}" class="img-fluid mb-3" alt="Doctors Icon" style="width: 80px; height: 80px; object-fit: cover;">
+                <h4 class="mb-2">Doctors</h4>
+                <div class="stat-number">150</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="dashboard-card p-4 rounded shadow bg-white">
+                <img src="{{ url_for('static', filename='dashboard2.jpg') }}" class="img-fluid mb-3" alt="Workers Icon" style="width: 80px; height: 80px; object-fit: cover;">
+                <h4 class="mb-2">Workers</h4>
+                <div class="stat-number">300</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="dashboard-card p-4 rounded shadow bg-white">
+                <img src="{{ url_for('static', filename='dashboard3.jpg') }}" class="img-fluid mb-3" alt="Specialists Icon" style="width: 80px; height: 80px; object-fit: cover;">
+                <h4 class="mb-2">Specialists</h4>
+                <div class="stat-number">50</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="dashboard-card p-4 rounded shadow bg-white">
+                <img src="{{ url_for('static', filename='dashboard4.jpg') }}" class="img-fluid mb-3" alt="Recovery Rate Icon" style="width: 80px; height: 80px; object-fit: cover;">
+                <h4 class="mb-2">Recovery Rate</h4>
+                <div class="stat-number">95%</div>
+            </div>
         </div>
     </div>
 </div>
+
+
+<!-- Services Grid -->
+<div class="container my-4">
+    <h2 class="text-center mb-4">Our Services</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="{{ url_for('static', filename='pic.jpg') }}" class="card-img-top" alt="Service 1">
+                <div class="card-body">
+                    <h5 class="card-title">Cardiology</h5>
+                    <p class="card-text">Expert care for your heart, from diagnostics to surgery, by our experienced cardiologists.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="{{ url_for('static', filename='pic2.jpg') }}" class="card-img-top" alt="Service 2">
+                <div class="card-body">
+                    <h5 class="card-title">Orthopedics</h5>
+                    <p class="card-text">Comprehensive treatment for bone and joint conditions to help you get back on your feet.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="{{ url_for('static', filename='pic3.jpg') }}" class="card-img-top" alt="Service 3">
+                <div class="card-body">
+                    <h5 class="card-title">Pediatrics</h5>
+                    <p class="card-text">Compassionate care for children, ensuring their health and happiness at every stage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Latest News/Updates -->
+<div class="container my-4">
+    <h2 class="text-center mb-4">Latest Updates</h2>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <img src="{{ url_for('static', filename='need1.jpg') }}" class="card-img-top" alt="Update 1" style="width: 100%; height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">New MRI Machine Installed</h5>
+                    <p class="card-text">We have installed a state-of-the-art MRI machine to provide more accurate diagnostics.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <img src="{{ url_for('static', filename='pic3.jpg') }}" class="card-img-top" alt="Update 2" style="width: 100%; height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">New Pediatric Wing Opened</h5>
+                    <p class="card-text">Our new pediatric wing is now open, offering specialized care for children and infants.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Best Doctors Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Meet Our Best Doctors</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="{{ url_for('static', filename='doctor1.jpg') }}" class="card-img-top" alt="Doctor 1" style="width: 100%; height: 350px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. John Smith</h5>
+                    <p class="card-text">Chief Cardiologist with over 20 years of experience in heart surgery and treatment.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="{{ url_for('static', filename='doctor2.jpg') }}" class="card-img-top" alt="Doctor 2" style="width: 100%; height: 350px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Emily White</h5>
+                    <p class="card-text">Renowned Pediatrician known for her compassionate care and expertise in child health.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="{{ url_for('static', filename='doctor3.jpg') }}" class="card-img-top" alt="Doctor 3" style="width: 100%; height: 350px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Michael Brown</h5>
+                    <p class="card-text">Orthopedic Surgeon specializing in joint replacements and sports medicine.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Testimonials Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">What Our Patients Say</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="testimonial p-4 bg-light rounded">
+                <p>"The doctors and staff at SR Hospital provided exceptional care during my surgery. I'm forever grateful!"</p>
+                <p class="text-end"><strong>- Sarah Williams</strong></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="testimonial p-4 bg-light rounded">
+                <p>"My child received outstanding treatment at SR Hospital's new pediatric wing. We couldn't be happier."</p>
+                <p class="text-end"><strong>- James Taylor</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Us -->
+<div class="container my-4">
+    <h2 class="text-center mb-4">Contact Us</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4">
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-light text-center py-4">
+    <p class="mb-0">&copy; {{ current_year }} SR Hospital. All rights reserved.</p>
+</footer>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
 {% endblock body %}

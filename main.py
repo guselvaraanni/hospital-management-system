@@ -11,7 +11,7 @@ import os
 from functools import wraps
 from flask import abort
 import re
-from flask import request, session, redirect, url_for
+from flask import session
 
 
 
@@ -94,7 +94,7 @@ def is_doctor_email(email):
 
 # Routes
 @app.route('/')
-def index():
+def home():
     return render_template("index.html")
 
 
@@ -153,7 +153,7 @@ def patients():
 def doctors():
     if request.method == "POST":
         email = request.form.get('email')
-        dept = request.form.get('dept')
+        dept = request.form.get('department')  # Correct the name to match the form field
         doctorname = request.form.get('doctorname')
 
         # Check if the provided email is a valid doctor email
@@ -165,8 +165,9 @@ def doctors():
         db.session.add(new_doctors)
         db.session.commit()
         flash("Booking information is stored", "info")
-        return render_template("doctors.html")
+        return redirect(url_for('doctors'))
 
+    # Render the doctors.html page for GET requests
     return render_template("doctors.html")
 
 
@@ -194,13 +195,13 @@ def edit(pid):
         appointmentTime = request.form.get('appointmentTime')
         slot = request.form.get('slot')
         disease = request.form.get('disease')
-        selectdoctor = request.form.get('selectdoctor')
+        doctorname = request.form.get('doctorname') 
         phonenumber = request.form.get('phonenumber')
 
         # Use placeholders in the query to prevent SQL injection
         query = text("UPDATE patients SET name=:name, email=:email, gender=:gender, "
         "appointmentDate=:appointmentDate, appointmentTime=:appointmentTime, "
-        "slot=:slot, disease=:disease, selectdoctor=:selectdoctor, phonenumber=:phonenumber "
+        "slot=:slot, disease=:disease, doctorname=:doctorname, phonenumber=:phonenumber "
         "WHERE pid=:pid")
 
         try:
@@ -212,12 +213,10 @@ def edit(pid):
                 'appointmentTime': appointmentTime,
                 'slot': slot,
                 'disease': disease,
-                'selectdoctor': selectdoctor,
+                'doctorname': doctorname,
                 'phonenumber': phonenumber,
                 'pid': pid
             })
-
-
             db.session.commit()
             flash("Slot is updated", "success")
             return redirect('/bookings')
@@ -323,13 +322,7 @@ def logout():
     flash("Logout successful","primary")
     return redirect(url_for('login'))
 
-@app.route('/test')
-def test():
-    try:
-        Test.query.all()
-        return "my db connected"
-    except:
-        return "not connected"
+
     
 
 @app.route('/search' , methods=["POST","GET"])
@@ -340,7 +333,7 @@ def search():
             query = request.form.get('search')
             print("Query:", query)  # Print the query to debug
 
-            dept = Doctors.query.filter_by(dept=query).first()
+            dept = Doctors.query.filter_by(dept=query).all()
             if dept:  
                 flash("Department is available", "info")
             else:
@@ -363,5 +356,5 @@ def details():
     return render_template("triggers.html", posts=posts)
 
 if __name__ == "__main__":
-    app.run(debug="True")
+    app.run(debug=True)
     
